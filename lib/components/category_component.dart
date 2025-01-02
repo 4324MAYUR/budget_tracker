@@ -136,7 +136,7 @@ class CategoryComponents extends StatelessWidget {
                     } else {
                       Get.snackbar(
                         "Required",
-                        "Please provide a category name and select an image.",
+                        "Please category name and image select.",
                         colorText: Colors.white,
                         backgroundColor: Colors.redAccent,
                       );
