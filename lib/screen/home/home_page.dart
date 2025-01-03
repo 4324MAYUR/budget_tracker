@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../components/all_category_component.dart';
 import '../../components/all_spending_component.dart';
 import '../../components/category_component.dart';
@@ -12,10 +12,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    NavigationController controller = Get.put(NavigationController());
+    NavigationController controller = Get.put(
+      NavigationController(),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BUDGET TRACKER"),
+        backgroundColor: Colors.blue,
+        title: const Text("BUDGET TRACKER",
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+        ),
         centerTitle: true,
       ),
       body: PageView(
@@ -40,19 +48,19 @@ class HomePage extends StatelessWidget {
             },
             destinations: const [
               NavigationDestination(
-                icon: Icon(Icons.price_check),
+                icon: Icon(CupertinoIcons.creditcard),
                 label: "All Spending",
               ),
               NavigationDestination(
-                icon: Icon(Icons.attach_money),
+                icon: Icon(CupertinoIcons.chart_bar),
                 label: "Spending",
               ),
               NavigationDestination(
-                icon: Icon(Icons.receipt_long),
+                icon: Icon(CupertinoIcons.list_bullet),
                 label: "All Category",
               ),
               NavigationDestination(
-                icon: Icon(Icons.category),
+                icon: Icon(Icons.category_sharp),
                 label: "Category",
               ),
             ],

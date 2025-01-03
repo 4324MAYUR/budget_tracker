@@ -1,3 +1,5 @@
+import 'package:budget_tracker/helper/db_helper.dart';
+import 'package:budget_tracker/modal/category_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,9 +7,14 @@ class NavigationController extends GetxController {
   RxInt navigationIndex = 0.obs;
   PageController pageController = PageController(initialPage: 0);
 
+  NavigationController() {
+    fetchCategoryData();
+  }
+
   void getNavigationIndex({required int index}) {
     navigationIndex.value = index;
   }
+
   void changePageView({required int index}) {
     pageController.animateToPage(
       index,
@@ -17,9 +24,7 @@ class NavigationController extends GetxController {
     update();
   }
 
-
   // Category
-
   int? categoryIndex;
 
   void getCategoryIndex({required int index}) {
@@ -29,6 +34,19 @@ class NavigationController extends GetxController {
 
   void assignDefaultVal() {
     categoryIndex = null;
+    update();
+  }
+
+  // List AllCategory Data
+  Future<List<CategoryModel>>? allCategory;
+
+  void fetchCategoryData() {
+    allCategory = DBHelper.dbHelper.fetchData();
+  }
+  // Search Category
+
+  void searchCategory({required String value}) {
+    allCategory = DBHelper.dbHelper.liveSearchCategory(search: value);
     update();
   }
 
@@ -49,5 +67,4 @@ class NavigationController extends GetxController {
     "assets/images/withdraw.png",
     "assets/images/other.png",
   ];
-
 }

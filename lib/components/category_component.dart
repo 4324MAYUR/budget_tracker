@@ -25,11 +25,11 @@ class CategoryComponents extends StatelessWidget {
           children: [
             const Center(
               child: Text(
-                "Choose a Category",
+                "Choice Your a Category",
                 style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  fontSize: 22,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black87,
                 ),
               ),
             ),
@@ -64,11 +64,11 @@ class CategoryComponents extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 25),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 4,
                   mainAxisSpacing: 10,
                   crossAxisSpacing: 10,
                 ),
@@ -103,15 +103,34 @@ class CategoryComponents extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton.extended(
-                  onPressed: () async {
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                    padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 10, vertical: 1)),
+                    elevation: WidgetStateProperty.all(1),
+                    backgroundColor: const WidgetStatePropertyAll(Colors.blue),
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                  label: const Text(
+                    "Add Category",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      height: 4,
+                      color: Colors.black,
+                    ),
+                  ),
+                  onPressed: ()async {
                     if (formKey.currentState!.validate() &&
                         controller.categoryIndex != null) {
                       String name = categoryName.text;
                       String assetPath =
-                          controller.categoryImages[controller.categoryIndex!];
+                      controller.categoryImages[controller.categoryIndex!];
                       ByteData byteData = await rootBundle.load(assetPath);
                       Uint8List image = byteData.buffer.asUint8List();
                       int? res = await DBHelper.dbHelper
@@ -141,19 +160,15 @@ class CategoryComponents extends StatelessWidget {
                         backgroundColor: Colors.redAccent,
                       );
                     }
+                    controller.fetchCategoryData();
                   },
-                  icon: const Icon(Icons.add_circle_outline_rounded,
-                  color: Colors.white,
+                  icon: const Icon(
+                    CupertinoIcons.add_circled_solid,
+                    color: Colors.black,
+                    size: 32,
                   ),
-                  label: const Text(
-                    "Add Category",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                  backgroundColor: Colors.deepPurple,
                 ),
-              ],
+               ],
             ),
           ],
         ),
